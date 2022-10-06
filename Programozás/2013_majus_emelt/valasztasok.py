@@ -102,21 +102,27 @@ for sor in szavazatok:
             print("a", sor[4], "párt jelöltje", end="")
         print(", (", legtobbsz, ") szavazattal.", sep="")'''
 
-print("7.feladat")
+print("7.feladat\n")
 # rendezzük az adatokat választókerület és szavazato száma szerint szerint
 for i in range(len(szavazatok)):
-    for j in range(len(szavazatok)-i-1):
-        if szavazatok[j][0] > szavazatok[j+1][0]:
+    for j in range(len(szavazatok) - i - 1):
+        if szavazatok[j][0] > szavazatok[j + 1][0]:
             csere = szavazatok[j]
-            szavazatok[j] = szavazatok[j+1]
-            szavazatok[j+1] = csere
+            szavazatok[j] = szavazatok[j + 1]
+            szavazatok[j + 1] = csere
 
 for i in range(len(szavazatok)):
-    for j in range(len(szavazatok)-i-1):
-        if szavazatok[j][0] >= szavazatok[j+1][0] and szavazatok[j][1] < szavazatok[j+1][1]:
+    for j in range(1, len(szavazatok) - i - 1):
+        if szavazatok[j][0] >= szavazatok[j + 1][0] and szavazatok[j][1] < szavazatok[j + 1][1]:
             csere = szavazatok[j]
-            szavazatok[j] = szavazatok[j+1]
-            szavazatok[j+1] = csere
+            szavazatok[j] = szavazatok[j + 1]
+            szavazatok[j + 1] = csere
+
+kiir = open("kepviselok.txt", "w")
+for i in range(len(szavazatok)):
+    if szavazatok[i][0] != szavazatok[i-1][0]:
+        print(szavazatok[i][0], " ", szavazatok[i][2], " ", szavazatok[i][3], " ", szavazatok[i][4], sep="", file=kiir)
 for sor in szavazatok:
     print(sor)
 beolvas.close()
+kiir.close()
